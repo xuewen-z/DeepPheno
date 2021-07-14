@@ -72,7 +72,7 @@ for file in path_list:
 	nb_features = 365
 
 	# reshape test data
-	X_test_r = np.zeros((len(X_test), nb_features, 10))
+	X_test_r = np.zeros((len(X_test), nb_features, 14))
 	X_test_r[:, :, 0] = X_test[:, :nb_features]
 	X_test_r[:, :, 1] = X_test[:, nb_features:730]
 	X_test_r[:, :, 2] = X_test[:, 730:1095]
@@ -82,7 +82,11 @@ for file in path_list:
 	X_test_r[:, :, 6] = X_test[:, 2190:2555]
 	X_test_r[:, :, 7] = X_test[:, 2555:2920]
 	X_test_r[:, :, 8] = X_test[:, 2920:3285]
-	X_test_r[:, :, 9] = X_test[:, 3285:]
+	X_test_r[:, :, 9] = X_test[:, 3285:3650]
+	X_test_r[:, :, 10] = X_test[:, 3650:4015]
+	X_test_r[:, :, 11] = X_test[:, 4015:4380]
+	X_test_r[:, :, 12] = X_test[:, 4380:4745]
+	X_test_r[:, :, 13] = X_test[:, 4745:]
 
 	# 对测试数据进行预测
 	preds = model.predict(X_test_r, batch_size = 1)
