@@ -182,7 +182,7 @@ X_test = np.array(test.values)
 nb_features = 365
 
 # reshape test data
-X_test_r = np.zeros((len(X_test), nb_features, 10))
+X_test_r = np.zeros((len(X_test), nb_features, 14))
 X_test_r[:, :, 0] = X_test[:, :nb_features]
 X_test_r[:, :, 1] = X_test[:, nb_features:730]
 X_test_r[:, :, 2] = X_test[:, 730:1095]
