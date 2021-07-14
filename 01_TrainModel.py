@@ -58,13 +58,13 @@ scaled_train = np.array(train.values)
 
 X_train,X_valid, y_train, y_valid = train_test_split(scaled_train,labels,test_size=0.2, random_state=25)
 
-nb_features = 365 # number of features per features type (10 variables)   
+nb_features = 365 # number of features per features type (14 variables)   
 
 
 
 # reshape train data
 
-X_train_r = np.zeros((len(X_train), nb_features, 10))
+X_train_r = np.zeros((len(X_train), nb_features, 14))
 X_train_r[:, :, 0] = X_train[:, :nb_features]
 X_train_r[:, :, 1] = X_train[:, nb_features:730]
 X_train_r[:, :, 2] = X_train[:, 730:1095]
@@ -74,11 +74,15 @@ X_train_r[:, :, 5] = X_train[:, 1825:2190]
 X_train_r[:, :, 6] = X_train[:, 2190:2555]
 X_train_r[:, :, 7] = X_train[:, 2555:2920]
 X_train_r[:, :, 8] = X_train[:, 2920:3285]
-X_train_r[:, :, 9] = X_train[:, 3285:]
+X_train_r[:, :, 9] = X_train[:, 3285:3650]
+X_train_r[:, :, 10] = X_train[:, 3650:4015]
+X_train_r[:, :, 11] = X_train[:, 4015:4380]
+X_train_r[:, :, 12] = X_train[:, 4380:4745]
+X_train_r[:, :, 13] = X_train[:, 4745:]
 
 # reshape validation data
 
-X_valid_r = np.zeros((len(X_valid), nb_features, 10))
+X_valid_r = np.zeros((len(X_valid), nb_features, 14))
 X_valid_r[:, :, 1] = X_valid[:, nb_features:730]
 X_valid_r[:, :, 2] = X_valid[:, 730:1095]
 X_valid_r[:, :, 3] = X_valid[:, 1095:1460]
@@ -87,19 +91,22 @@ X_valid_r[:, :, 5] = X_valid[:, 1825:2190]
 X_valid_r[:, :, 6] = X_valid[:, 2190:2555]
 X_valid_r[:, :, 7] = X_valid[:, 2555:2920]
 X_valid_r[:, :, 8] = X_valid[:, 2920:3285]
-X_valid_r[:, :, 9] = X_valid[:, 3285:]
-
+X_valid_r[:, :, 9] = X_valid[:, 3285:3650]
+X_valid_r[:, :, 10] = X_valid[:, 3650:4015]
+X_valid_r[:, :, 11] = X_valid[:, 4015:4380]
+X_valid_r[:, :, 12] = X_valid[:, 4380:4745]
+X_valid_r[:, :, 13] = X_valid[:, 4745:]
 
 # Keras model with one Convolution1D layer
 
 # build model
 
 model = Sequential()
-model.add(Convolution1D(nb_filter=512, filter_length=3, input_shape=(nb_features, 10)))
+model.add(Convolution1D(nb_filter=512, filter_length=3, input_shape=(nb_features, 14)))
 model.add(AveragePooling1D(2))
-model.add(Convolution1D(nb_filter=512, filter_length=3, input_shape=(nb_features, 10)))
+model.add(Convolution1D(nb_filter=512, filter_length=3, input_shape=(nb_features, 14)))
 model.add(AveragePooling1D(2))
-model.add(Convolution1D(nb_filter=512, filter_length=3, input_shape=(nb_features, 10)))
+model.add(Convolution1D(nb_filter=512, filter_length=3, input_shape=(nb_features, 14)))
 model.add(Activation('relu'))
 #model.add(MaxPooling1D(2))
 model.add(Flatten())    # this converts our 3D feature maps to 1D feature vectors
@@ -185,7 +192,11 @@ X_test_r[:, :, 5] = X_test[:, 1825:2190]
 X_test_r[:, :, 6] = X_test[:, 2190:2555]
 X_test_r[:, :, 7] = X_test[:, 2555:2920]
 X_test_r[:, :, 8] = X_test[:, 2920:3285]
-X_test_r[:, :, 9] = X_test[:, 3285:]
+X_test_r[:, :, 9] = X_test[:, 3285:3650]
+X_test_r[:, :, 10] = X_test[:, 3650:4015]
+X_test_r[:, :, 11] = X_test[:, 4015:4380]
+X_test_r[:, :, 12] = X_test[:, 4380:4745]
+X_test_r[:, :, 13] = X_test[:, 4745:]
 
 # 对测试数据进行预测
 preds = model.predict(X_test_r, batch_size = 1)
